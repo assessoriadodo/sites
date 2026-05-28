@@ -1,0 +1,28 @@
+{% extends "admin_base.html" %}
+{% block title %}Mensagens{% endblock %}
+{% block content %}
+<h1 style="margin-bottom: 2rem;">Mensagens Recebidas</h1>
+<table>
+    <thead><tr><th>Nome</th><th>Telefone</th><th>Bairro</th><th>Assunto</th><th>Data</th><th>Status</th><th>Ações</th></tr></thead>
+    <tbody>
+        {% for msg in mensagens %}
+        <tr>
+            <td>{{ msg.nome }}</td>
+            <td>{{ msg.telefone or '-' }}</td>
+            <td>{{ msg.bairro or '-' }}</td>
+            <td>{{ msg.assunto or '-' }}</td>
+            <td>{{ msg.criado_em.strftime('%d/%m/%Y %H:%M') }}</td>
+            <td>{% if msg.lido %}<span style="color: #10b981;">Lida</span>{% else %}<span style="color: #f59e0b; font-weight: 600;">Não lida</span>{% endif %}</td>
+            <td>
+                {% if not msg.lido %}
+                <a href="/admin/mensagem/marcar-lida/{{ msg.id }}" class="btn btn-primary" style="padding: 0.4rem 0.8rem;"><i class="fas fa-check"></i></a>
+                {% endif %}
+                <button class="btn" style="padding: 0.4rem 0.8rem; background: #3b82f6; color: white;" onclick="alert('{{ msg.mensagem | replace('\n', '\\n') | replace("'", "\\'") }}')"><i class="fas fa-eye"></i></button>
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="7" style="text-align: center; padding: 2rem;">Nenhuma mensagem recebida.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

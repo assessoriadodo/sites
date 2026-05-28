@@ -1,0 +1,27 @@
+{% extends "admin_base.html" %}
+{% block title %}Ações Parlamentares{% endblock %}
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+    <h1>Gerenciar Ações Parlamentares</h1>
+    <a href="/admin/acao/nova" class="btn btn-primary"><i class="fas fa-plus"></i> Nova Ação</a>
+</div>
+<table>
+    <thead><tr><th>Título</th><th>Tipo</th><th>Categoria</th><th>Status</th><th>Ações</th></tr></thead>
+    <tbody>
+        {% for acao in acoes %}
+        <tr>
+            <td>{{ acao.titulo }}</td>
+            <td>{{ acao.tipo }}</td>
+            <td>{{ acao.categoria }}</td>
+            <td>{{ acao.status }}</td>
+            <td>
+                <a href="/admin/acao/editar/{{ acao.id }}" class="btn btn-primary" style="padding: 0.4rem 0.8rem;"><i class="fas fa-edit"></i></a>
+                <a href="/admin/acao/excluir/{{ acao.id }}" class="btn btn-danger" style="padding: 0.4rem 0.8rem;" onclick="return confirm('Tem certeza?')"><i class="fas fa-trash"></i></a>
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5" style="text-align: center; padding: 2rem;">Nenhuma ação cadastrada.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "admin_base.html" %}
+{% block title %}Configurações{% endblock %}
+{% block content %}
+<h1 style="margin-bottom: 2rem;">Configurações do Site</h1>
+<form method="POST">
+    <label>WhatsApp (apenas números)</label>
+    <input type="text" name="whatsapp_numero" value="{{ configs.get('whatsapp_numero', '') }}" placeholder="73999999999">
+    
+    <label>URL do Instagram</label>
+    <input type="text" name="instagram_url" value="{{ configs.get('instagram_url', '') }}">
+    
+    <label>URL do Facebook</label>
+    <input type="text" name="facebook_url" value="{{ configs.get('facebook_url', '') }}">
+    
+    <label>URL do YouTube</label>
+    <input type="text" name="youtube_url" value="{{ configs.get('youtube_url', '') }}">
+    
+    <label>Endereço</label>
+    <input type="text" name="endereco" value="{{ configs.get('endereco', '') }}">
+    
+    <label>E-mail de Contato</label>
+    <input type="email" name="email_contato" value="{{ configs.get('email_contato', '') }}">
+    
+    <div style="margin-top: 2rem;">
+        <button type="submit" class="btn btn-primary">Salvar Configurações</button>
+    </div>
+</form>
+{% endblock %}

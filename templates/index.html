@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block title %}Início{% endblock %}
+
+{% block content %}
+<!-- Hero Banner -->
+<section style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); color: white; padding: 6rem 0; text-align: center;">
+    <div class="container">
+        <h1 style="color: white; font-size: 3rem; margin-bottom: 1rem;">Douglas Souto - Dodô</h1>
+        <p style="font-size: 1.3rem; margin-bottom: 2rem; opacity: 0.9;">Vereador de Mucuri-BA, trabalhando com transparência e compromisso pelo povo</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="/atuacao" style="background: white; color: #1e3a8a; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: transform 0.3s;">Conheça meu trabalho</a>
+            <a href="/noticias" style="background: transparent; color: white; border: 2px solid white; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: transform 0.3s;">Acompanhe as notícias</a>
+            <a href="/contato" style="background: #25D366; color: white; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: transform 0.3s;">Fale com Dodô</a>
+        </div>
+    </div>
+</section>
+
+<!-- Sobre Resumo -->
+<section class="container" style="padding: 4rem 2rem;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; align-items: center;">
+        <div>
+            <img src="https://placehold.co/500x400/1e3a8a/ffffff?text=Dodô" alt="Vereador Dodô" style="width: 100%; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+        </div>
+        <div>
+            <h2 style="margin-bottom: 1rem;">Um vereador próximo do povo</h2>
+            <p style="margin-bottom: 1rem; color: #666;">Douglas Souto, popularmente conhecido como Dodô, é um vereador comprometido com os interesses do povo de Mucuri. Com uma trajetória marcada pela honestidade e trabalho sério, Dodô tem se destacado na fiscalização das contas públicas e na defesa dos serviços essenciais.</p>
+            <p style="margin-bottom: 2rem; color: #666;">Sua atuação parlamentar é pautada pela transparência, responsabilidade e compromisso com as comunidades de Mucuri, Itabatã e região.</p>
+            <a href="/sobre" style="color: #1e3a8a; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem;">
+                Conheça mais sobre Dodô <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Números do Mandato -->
+<section style="background: #f3f4f6; padding: 4rem 0;">
+    <div class="container">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; text-align: center;">
+            <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <i class="fas fa-file-alt" style="font-size: 2.5rem; color: #1e3a8a; margin-bottom: 1rem;"></i>
+                <h3 style="font-size: 2rem; margin-bottom: 0.5rem;">50+</h3>
+                <p style="color: #666;">Projetos e Indicações</p>
+            </div>
+            <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <i class="fas fa-search" style="font-size: 2.5rem; color: #1e3a8a; margin-bottom: 1rem;"></i>
+                <h3 style="font-size: 2rem; margin-bottom: 0.5rem;">30+</h3>
+                <p style="color: #666;">Fiscalizações Realizadas</p>
+            </div>
+            <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <i class="fas fa-users" style="font-size: 2.5rem; color: #1e3a8a; margin-bottom: 1rem;"></i>
+                <h3 style="font-size: 2rem; margin-bottom: 0.5rem;">1000+</h3>
+                <p style="color: #666;">Atendimentos à População</p>
+            </div>
+            <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <i class="fas fa-handshake" style="font-size: 2.5rem; color: #1e3a8a; margin-bottom: 1rem;"></i>
+                <h3 style="font-size: 2rem; margin-bottom: 0.5rem;">100%</h3>
+                <p style="color: #666;">Compromisso com o Povo</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Últimas Notícias -->
+<section class="container" style="padding: 4rem 2rem;">
+    <h2 style="text-align: center; margin-bottom: 3rem;">Últimas Notícias</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+        {% for noticia in noticias %}
+        <div style="background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s;">
+            <img src="{{ url_for('uploaded_file', filename=noticia.imagem_capa) if noticia.imagem_capa else 'https://placehold.co/400x250/1e3a8a/ffffff?text=Notícia' }}" alt="{{ noticia.titulo }}" style="width: 100%; height: 200px; object-fit: cover;">
+            <div style="padding: 1.5rem;">
+                <span style="background: #1e3a8a; color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem;">{{ noticia.categoria or 'Geral' }}</span>
+                <h3 style="margin: 1rem 0; font-size: 1.2rem;">{{ noticia.titulo }}</h3>
+                <p style="color: #666; font-size: 0.9rem; margin-bottom: 1rem;">{{ noticia.texto[:150] }}...</p>
+                <a href="/noticia/{{ noticia.id }}" style="color: #1e3a8a; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem;">
+                    Ler mais <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+        {% else %}
+        <div style="grid-column: 1/-1; text-align: center; padding: 3rem; background: #f3f4f6; border-radius: 10px;">
+            <i class="fas fa-newspaper" style="font-size: 3rem; color: #ccc; margin-bottom: 1rem;"></i>
+            <p style="color: #999;">Nenhuma notícia publicada ainda.</p>
+        </div>
+        {% endfor %}
+    </div>
+    <div style="text-align: center; margin-top: 2rem;">
+        <a href="/noticias" style="background: #1e3a8a; color: white; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-block;">Ver todas as notícias</a>
+    </div>
+</section>
+
+<!-- Ações em Destaque -->
+<section style="background: #1e3a8a; color: white; padding: 4rem 0;">
+    <div class="container">
+        <h2 style="color: white; text-align: center; margin-bottom: 3rem;">Ações Parlamentares em Destaque</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+            {% for acao in acoes %}
+            <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 10px; backdrop-filter: blur(10px);">
+                <span style="background: #3b82f6; color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem;">{{ acao.tipo }}</span>
+                <h3 style="color: white; margin: 1rem 0; font-size: 1.1rem;">{{ acao.titulo }}</h3>
+                <p style="opacity: 0.9; font-size: 0.9rem; margin-bottom: 1rem;">{{ acao.descricao[:100] }}...</p>
+                <span style="font-size: 0.8rem; opacity: 0.7;"><i class="fas fa-tag"></i> {{ acao.categoria }}</span>
+            </div>
+            {% else %}
+            <div style="grid-column: 1/-1; text-align: center; padding: 3rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                <p style="opacity: 0.7;">Nenhuma ação cadastrada ainda.</p>
+            </div>
+            {% endfor %}
+        </div>
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="/atuacao" style="background: white; color: #1e3a8a; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-block;">Ver todas as ações</a>
+        </div>
+    </div>
+</section>
+
+<!-- Galeria Preview -->
+<section class="container" style="padding: 4rem 2rem;">
+    <h2 style="text-align: center; margin-bottom: 3rem;">Galeria de Fotos</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+        {% for foto in fotos %}
+        <div style="border-radius: 10px; overflow: hidden; height: 200px;">
+            <img src="{{ url_for('uploaded_file', filename=foto.imagem) }}" alt="{{ foto.titulo or 'Foto' }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s;">
+        </div>
+        {% else %}
+        <div style="grid-column: 1/-1; text-align: center; padding: 3rem; background: #f3f4f6; border-radius: 10px;">
+            <i class="fas fa-camera" style="font-size: 3rem; color: #ccc; margin-bottom: 1rem;"></i>
+            <p style="color: #999;">Nenhuma foto na galeria ainda.</p>
+        </div>
+        {% endfor %}
+    </div>
+    <div style="text-align: center; margin-top: 2rem;">
+        <a href="/galeria" style="color: #1e3a8a; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem;">
+            Ver galeria completa <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+</section>
+
+<!-- CTA Contato -->
+<section style="background: linear-gradient(135deg, #3b82f6 0%, #1e3a8a 100%); color: white; padding: 4rem 0; text-align: center;">
+    <div class="container">
+        <h2 style="color: white; margin-bottom: 1rem;">Precisa de ajuda ou tem uma sugestão?</h2>
+        <p style="margin-bottom: 2rem; opacity: 0.9; font-size: 1.1rem;">Estou à disposição para ouvir suas demandas e trabalhar por melhorias para nossa cidade.</p>
+        <a href="/contato" style="background: white; color: #1e3a8a; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-block; margin-right: 1rem;">Enviar mensagem</a>
+        <a href="https://wa.me/5573999999999" target="_blank" style="background: #25D366; color: white; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-block;">
+            <i class="fab fa-whatsapp"></i> Falar no WhatsApp
+        </a>
+    </div>
+</section>
+{% endblock %}

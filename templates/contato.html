@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}Contato{% endblock %}
+{% block content %}
+<div class="container" style="padding: 4rem 2rem;">
+    <h1 style="text-align: center; margin-bottom: 1rem;">Fale com Dodô</h1>
+    <p style="text-align: center; color: #666; margin-bottom: 3rem;">Envie sua mensagem, solicitação ou denúncia. Sua participação é fundamental!</p>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
+        <!-- Formulário -->
+        <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <form method="POST">
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Nome *</label>
+                    <input type="text" name="nome" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px;">
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Telefone</label>
+                    <input type="tel" name="telefone" placeholder="(73) 99999-9999" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px;">
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Bairro/Comunidade</label>
+                    <input type="text" name="bairro" placeholder="Ex: Centro, Itabatã..." style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px;">
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Assunto</label>
+                    <select name="assunto" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px;">
+                        <option value="">Selecione...</option>
+                        <option value="Saúde">Saúde</option>
+                        <option value="Educação">Educação</option>
+                        <option value="Infraestrutura">Infraestrutura</option>
+                        <option value="Assistência Social">Assistência Social</option>
+                        <option value="Outros">Outros</option>
+                    </select>
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Mensagem *</label>
+                    <textarea name="mensagem" rows="5" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; resize: vertical;"></textarea>
+                </div>
+                <button type="submit" style="width: 100%; background: #1e3a8a; color: white; padding: 1rem; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.3s;">Enviar Mensagem</button>
+            </form>
+        </div>
+        
+        <!-- Informações de Contato -->
+        <div>
+            <div style="background: #f3f4f6; padding: 2rem; border-radius: 10px; margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 1.5rem;">Canais de Atendimento</h3>
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="width: 50px; height: 50px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;"><i class="fab fa-whatsapp"></i></div>
+                    <div>
+                        <strong>WhatsApp</strong>
+                        <p style="color: #666; font-size: 0.95rem;">(73) 99999-9999</p>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="width: 50px; height: 50px; background: #1877F2; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;"><i class="fab fa-facebook"></i></div>
+                    <div>
+                        <strong>Facebook</strong>
+                        <p style="color: #666; font-size: 0.95rem;">@vereadordodo</p>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;"><i class="fab fa-instagram"></i></div>
+                    <div>
+                        <strong>Instagram</strong>
+                        <p style="color: #666; font-size: 0.95rem;">@vereadordodo</p>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div style="width: 50px; height: 50px; background: #FF0000; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;"><i class="fab fa-youtube"></i></div>
+                    <div>
+                        <strong>YouTube</strong>
+                        <p style="color: #666; font-size: 0.95rem;">@vereadordodo</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: #1e3a8a; color: white; padding: 2rem; border-radius: 10px;">
+                <h3 style="color: white; margin-bottom: 1rem;">Endereço</h3>
+                <p style="opacity: 0.9;"><i class="fas fa-map-marker-alt" style="margin-right: 0.5rem;"></i> Câmara Municipal de Mucuri - BA</p>
+                <p style="opacity: 0.9; margin-top: 1rem;"><i class="fas fa-envelope" style="margin-right: 0.5rem;"></i> contato@vereadordodo.com.br</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

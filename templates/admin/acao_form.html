@@ -1,0 +1,48 @@
+{% extends "admin_base.html" %}
+{% block title %}{{ 'Editar' if acao else 'Nova' }} Ação{% endblock %}
+{% block content %}
+<h1 style="margin-bottom: 2rem;">{{ 'Editar' if acao else 'Nova' }} Ação Parlamentar</h1>
+<form method="POST" enctype="multipart/form-data">
+    <label>Título *</label>
+    <input type="text" name="titulo" value="{{ acao.titulo if acao else '' }}" required>
+    
+    <label>Tipo *</label>
+    <select name="tipo" required>
+        <option value="">Selecione...</option>
+        {% for t in tipos %}
+        <option value="{{ t }}" {% if acao and acao.tipo == t %}selected{% endif %}>{{ t }}</option>
+        {% endfor %}
+    </select>
+    
+    <label>Categoria *</label>
+    <select name="categoria" required>
+        <option value="">Selecione...</option>
+        {% for c in categorias %}
+        <option value="{{ c }}" {% if acao and acao.categoria == c %}selected{% endif %}>{{ c }}</option>
+        {% endfor %}
+    </select>
+    
+    <label>Descrição *</label>
+    <textarea name="descricao" rows="6" required>{{ acao.descricao if acao else '' }}</textarea>
+    
+    <label>Status</label>
+    <input type="text" name="status" value="{{ acao.status if acao else 'Em análise' }}">
+    
+    <label>Data do Protocolo</label>
+    <input type="date" name="data_protocolo" value="{{ acao.data_protocolo.strftime('%Y-%m-%d') if acao and acao.data_protocolo else '' }}">
+    
+    <label>Imagem</label>
+    <input type="file" name="imagem" accept="image/*">
+    
+    <label>Documento (PDF)</label>
+    <input type="file" name="documento" accept=".pdf,.doc,.docx">
+    {% if acao and acao.documento %}
+    <p style="margin-top: 0.5rem;">Documento atual: {{ acao.documento }}</p>
+    {% endif %}
+    
+    <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a href="/admin/acoes" class="btn" style="background: #666; color: white;">Cancelar</a>
+    </div>
+</form>
+{% endblock %}

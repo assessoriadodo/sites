@@ -1,0 +1,34 @@
+{% extends "admin_base.html" %}
+{% block title %}{{ 'Editar' if noticia else 'Nova' }} Notícia{% endblock %}
+{% block content %}
+<h1 style="margin-bottom: 2rem;">{{ 'Editar' if noticia else 'Nova' }} Notícia</h1>
+<form method="POST" enctype="multipart/form-data">
+    <label>Título *</label>
+    <input type="text" name="titulo" value="{{ noticia.titulo if noticia else '' }}" required>
+    
+    <label>Subtítulo</label>
+    <input type="text" name="subtitulo" value="{{ noticia.subtitulo if noticia else '' }}">
+    
+    <label>Categoria</label>
+    <input type="text" name="categoria" value="{{ noticia.categoria if noticia else '' }}" placeholder="Ex: Saúde, Educação...">
+    
+    <label>Texto *</label>
+    <textarea name="texto" rows="10" required>{{ noticia.texto if noticia else '' }}</textarea>
+    
+    <label>Imagem de Capa</label>
+    <input type="file" name="imagem_capa" accept="image/*">
+    {% if noticia and noticia.imagem_capa %}
+    <p style="margin-top: 0.5rem;">Imagem atual: {{ noticia.imagem_capa }}</p>
+    {% endif %}
+    
+    <label style="display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem;">
+        <input type="checkbox" name="publicado" {% if noticia and noticia.publicado %}checked{% endif %} style="width: auto; margin: 0;">
+        Publicar imediatamente
+    </label>
+    
+    <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a href="/admin/noticias" class="btn" style="background: #666; color: white;">Cancelar</a>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Atuação Parlamentar{% endblock %}
+{% block content %}
+<div class="container" style="padding: 4rem 2rem;">
+    <h1 style="text-align: center; margin-bottom: 1rem;">Atuação Parlamentar</h1>
+    <p style="text-align: center; color: #666; margin-bottom: 3rem; max-width: 700px; margin-left: auto; margin-right: auto;">Confira todos os projetos, indicações, requerimentos e fiscalizações realizadas pelo vereador Dodô em defesa do povo de Mucuri.</p>
+    
+    <!-- Filtros -->
+    <div style="background: #f3f4f6; padding: 2rem; border-radius: 10px; margin-bottom: 3rem;">
+        <form method="GET" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+            <select name="categoria" style="padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px;">
+                <option value="">Todas as Categorias</option>
+                {% for cat in categorias %}
+                <option value="{{ cat }}" {% if categoria_filtro == cat %}selected{% endif %}>{{ cat }}</option>
+                {% endfor %}
+            </select>
+            <select name="tipo" style="padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px;">
+                <option value="">Todos os Tipos</option>
+                {% for t in tipos %}
+                <option value="{{ t }}" {% if tipo_filtro == t %}selected{% endif %}>{{ t }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" style="background: #1e3a8a; color: white; padding: 0.8rem; border: none; border-radius: 8px; cursor: pointer;">Filtrar</button>
+            <a href="/atuacao" style="background: #666; color: white; padding: 0.8rem; text-align: center; text-decoration: none; border-radius: 8px; display: flex; align-items: center; justify-content: center;">Limpar</a>
+        </form>
+    </div>
+    
+    <!-- Lista de Ações -->
+    <div style="display: grid; gap: 1.5rem;">
+        {% for acao in acoes %}
+        <div style="background: white; border-radius: 10px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: grid; grid-template-columns: auto 1fr auto; gap: 1.5rem; align-items: start;">
+            <div style="width: 80px; height: 80px; background: #1e3a8a; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">
+                {% if acao.tipo == 'Projeto de Lei' %}<i class="fas fa-file-contract"></i>
+                {% elif acao.tipo == 'Indicação' %}<i class="fas fa-lightbulb"></i>
+                {% elif acao.tipo == 'Requerimento' %}<i class="fas fa-clipboard-list"></i>
+                {% elif acao.tipo == 'Fiscalização' %}<i class="fas fa-search"></i>
+                {% else %}<i class="fas fa-bullhorn"></i>{% endif %}
+            </div>
+            <div>
+                <span style="background: #3b82f6; color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem;">{{ acao.tipo }}</span>
+                <h3 style="margin: 0.8rem 0; font-size: 1.2rem;">{{ acao.titulo }}</h3>
+                <p style="color: #666; margin-bottom: 0.8rem;">{{ acao.descricao[:200] }}{% if acao.descricao|length > 200 %}...{% endif %}</p>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <span style="font-size: 0.85rem; color: #666;"><i class="fas fa-tag"></i> {{ acao.categoria }}</span>
+                    <span style="font-size: 0.85rem; color: #666;"><i class="fas fa-calendar"></i> {{ acao.data_protocolo.strftime('%d/%m/%Y') if acao.data_protocolo else 'N/A' }}</span>
+                    <span style="font-size: 0.85rem; color: #25D366;"><i class="fas fa-check-circle"></i> {{ acao.status }}</span>
+                </div>
+            </div>
+            {% if acao.documento %}
+            <a href="{{ url_for('uploaded_file', filename=acao.documento) }}" target="_blank" style="background: #1e3a8a; color: white; padding: 0.8rem 1.5rem; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; white-space: nowrap;">
+                <i class="fas fa-file-pdf"></i> Ver Documento
+            </a>
+            {% endif %}
+        </div>
+        {% else %}
+        <div style="text-align: center; padding: 4rem; background: #f3f4f6; border-radius: 10px;">
+            <i class="fas fa-folder-open" style="font-size: 4rem; color: #ccc; margin-bottom: 1rem;"></i>
+            <p style="color: #999;">Nenhuma ação parlamentar encontrada.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
