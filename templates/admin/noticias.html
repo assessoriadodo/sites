@@ -1,0 +1,27 @@
+{% extends "admin_base.html" %}
+{% block title %}Notícias{% endblock %}
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+    <h1>Gerenciar Notícias</h1>
+    <a href="/admin/noticia/nova" class="btn btn-primary"><i class="fas fa-plus"></i> Nova Notícia</a>
+</div>
+<table>
+    <thead><tr><th>Título</th><th>Categoria</th><th>Data</th><th>Status</th><th>Ações</th></tr></thead>
+    <tbody>
+        {% for noticia in noticias %}
+        <tr>
+            <td>{{ noticia.titulo }}</td>
+            <td>{{ noticia.categoria or '-' }}</td>
+            <td>{{ noticia.criado_em.strftime('%d/%m/%Y') }}</td>
+            <td>{% if noticia.publicado %}<span style="color: #10b981;">Publicada</span>{% else %}<span style="color: #f59e0b;">Rascunho</span>{% endif %}</td>
+            <td>
+                <a href="/admin/noticia/editar/{{ noticia.id }}" class="btn btn-primary" style="padding: 0.4rem 0.8rem;"><i class="fas fa-edit"></i></a>
+                <a href="/admin/noticia/excluir/{{ noticia.id }}" class="btn btn-danger" style="padding: 0.4rem 0.8rem;" onclick="return confirm('Tem certeza?')"><i class="fas fa-trash"></i></a>
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5" style="text-align: center; padding: 2rem;">Nenhuma notícia cadastrada.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

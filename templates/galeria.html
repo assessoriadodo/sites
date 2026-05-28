@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Galeria de Fotos{% endblock %}
+{% block content %}
+<div class="container" style="padding: 4rem 2rem;">
+    <h1 style="text-align: center; margin-bottom: 1rem;">Galeria de Fotos</h1>
+    <p style="text-align: center; color: #666; margin-bottom: 3rem;">Confira os registros das ações, fiscalizações, reuniões e eventos do vereador Dodô.</p>
+    
+    <!-- Filtros -->
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem;">
+        <a href="/galeria" style="padding: 0.6rem 1.5rem; background: {% if not categoria_filtro %}#1e3a8a{% else %}#f3f4f6{% endif %}; color: {% if not categoria_filtro %}white{% else %}#333{% endif %}; text-decoration: none; border-radius: 25px; transition: all 0.3s;">Todas</a>
+        {% for cat in categorias %}
+        <a href="/galeria?categoria={{ cat }}" style="padding: 0.6rem 1.5rem; background: {% if categoria_filtro == cat %}#1e3a8a{% else %}#f3f4f6{% endif %}; color: {% if categoria_filtro == cat %}white{% else %}#333{% endif %}; text-decoration: none; border-radius: 25px; transition: all 0.3s;">{{ cat }}</a>
+        {% endfor %}
+    </div>
+    
+    <!-- Grid de Fotos -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;">
+        {% for foto in fotos %}
+        <div style="border-radius: 10px; overflow: hidden; cursor: pointer;" onclick="openLightbox('{{ url_for('uploaded_file', filename=foto.imagem) }}', '{{ foto.titulo or '' }}', '{{ foto.descricao or '' }}')">
+            <img src="{{ url_for('uploaded_file', filename=foto.imagem) }}" alt="{{ foto.titulo or 'Foto' }}" style="width: 100%; height: 220px; object-fit: cover; transition: transform 0.3s;">
+            {% if foto.titulo %}
+            <div style="padding: 1rem; background: white;">
+                <h3 style="font-size: 1rem; margin-bottom: 0.3rem;">{{ foto.titulo }}</h3>
+                {% if foto.categoria %}<span style="font-size: 0.8rem; color: #999;">{{ foto.categoria }}</span>{% endif %}
+            </div>
+            {% endif %}
+        </div>
+        {% else %}
+        <div style="grid-column: 1/-1; text-align: center; padding: 4rem; background: #f3f4f6; border-radius: 10px;">
+            <i class="fas fa-camera" style="font-size: 4rem; color: #ccc; margin-bottom: 1rem;"></i>
+            <p style="color: #999;">Nenhuma foto na galeria ainda.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; align-items: center; justify-content: center;" onclick="closeLightbox()">
+    <div style="max-width: 90%; max-height: 90%; text-align: center;">
+        <img id="lightbox-img" src="" alt="" style="max-width: 100%; max-height: 80vh; border-radius: 10px;">
+        <div id="lightbox-caption" style="color: white; margin-top: 1rem; font-size: 1.1rem;"></div>
+    </div>
+</div>
+
+<script>
+function openLightbox(src, title, desc) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox-caption').innerHTML = (title ? '<strong>' + title + '</strong>' : '') + (desc ? '<br>' + desc : '');
+    document.getElementById('lightbox').style.display = 'flex';
+}
+function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+}
+</script>
+{% endblock %}

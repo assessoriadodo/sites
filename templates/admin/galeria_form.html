@@ -1,0 +1,28 @@
+{% extends "admin_base.html" %}
+{% block title %}Adicionar Foto{% endblock %}
+{% block content %}
+<h1 style="margin-bottom: 2rem;">Adicionar Foto à Galeria</h1>
+<form method="POST" enctype="multipart/form-data">
+    <label>Título</label>
+    <input type="text" name="titulo">
+    
+    <label>Descrição</label>
+    <textarea name="descricao" rows="3"></textarea>
+    
+    <label>Categoria</label>
+    <input type="text" name="categoria" placeholder="Ex: Fiscalização, Obras, Eventos...">
+    
+    <label>Imagem *</label>
+    <input type="file" name="imagem" accept="image/*" required>
+    
+    <label style="display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem;">
+        <input type="checkbox" name="destaque" style="width: auto; margin: 0;">
+        Destaque na página inicial
+    </label>
+    
+    <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a href="/admin/galeria" class="btn" style="background: #666; color: white;">Cancelar</a>
+    </div>
+</form>
+{% endblock %}

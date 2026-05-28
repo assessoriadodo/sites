@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin{% endblock %} - Painel Administrativo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f3f4f6; display: flex; min-height: 100vh; }
+        .sidebar { width: 260px; background: #1e3a8a; color: white; padding: 1.5rem; position: fixed; height: 100vh; overflow-y: auto; }
+        .sidebar h2 { font-size: 1.2rem; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.2); }
+        .sidebar a { display: block; color: rgba(255,255,255,0.8); text-decoration: none; padding: 0.8rem 1rem; margin-bottom: 0.5rem; border-radius: 8px; transition: all 0.3s; }
+        .sidebar a:hover, .sidebar a.active { background: rgba(255,255,255,0.1); color: white; }
+        .sidebar a i { width: 25px; }
+        .main-content { margin-left: 260px; flex: 1; padding: 2rem; }
+        .top-bar { background: white; padding: 1rem 2rem; border-radius: 10px; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .flash { padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; }
+        .flash.success { background: #d1fae5; color: #065f46; }
+        .flash.error { background: #fee2e2; color: #991b1b; }
+        .btn { padding: 0.6rem 1.2rem; border-radius: 8px; text-decoration: none; display: inline-block; font-size: 0.9rem; cursor: pointer; border: none; }
+        .btn-primary { background: #1e3a8a; color: white; }
+        .btn-danger { background: #dc2626; color: white; }
+        table { width: 100%; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: #f3f4f6; font-weight: 600; }
+        form input, form select, form textarea { width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 1rem; font-size: 1rem; }
+        form label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333; }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <h2><i class="fas fa-user-shield"></i> Painel Admin</h2>
+        <a href="/admin"><i class="fas fa-home"></i> Dashboard</a>
+        <a href="/admin/noticias"><i class="fas fa-newspaper"></i> Notícias</a>
+        <a href="/admin/acoes"><i class="fas fa-bullhorn"></i> Ações Parlamentares</a>
+        <a href="/admin/galeria"><i class="fas fa-images"></i> Galeria de Fotos</a>
+        <a href="/admin/mensagens"><i class="fas fa-envelope"></i> Mensagens</a>
+        <a href="/admin/configuracoes"><i class="fas fa-cog"></i> Configurações</a>
+        <a href="/" target="_blank"><i class="fas fa-external-link-alt"></i> Ver Site</a>
+        <a href="/admin/logout" style="margin-top: 2rem; background: rgba(220,38,38,0.2);"><i class="fas fa-sign-out-alt"></i> Sair</a>
+    </aside>
+    
+    <div class="main-content">
+        <div class="top-bar">
+            <h3>Bem-vindo, {{ session.get('admin_nome', 'Administrador') }}!</h3>
+            <a href="/admin/logout" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Sair</a>
+        </div>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

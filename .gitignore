@@ -1,0 +1,41 @@
+```
+# Database files
+*.db
+instance/
+
+# Python specific
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+.ENV
+.python-version
+
+# Logs
+*.log
+
+# Environment variables
+.env
+.env.local
+.env.*
+
+# IDE specific
+.vscode/
+.idea/
+*.swp
+*.swo
+*.tmp
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+```
